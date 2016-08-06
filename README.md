@@ -1,4 +1,4 @@
-# CodePath - *Fragments* Sample App
+# CodePath - Fragments Sample App
 
 Working sample code for simple app demonstrating fragments in Android. Key topics covered:
 
