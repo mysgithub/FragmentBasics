@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:layout_marginRight="5dp"
+              android:layout_marginEnd="5dp">
 
     <fragment android:name="com.codepath.mypizza.fragments.PizzaMenuFragment"
               android:id="@+id/pizza_menu_fragment"
