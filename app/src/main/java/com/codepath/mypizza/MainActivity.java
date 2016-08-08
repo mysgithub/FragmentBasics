@@ -8,7 +8,7 @@ import android.os.Bundle;
 import com.codepath.mypizza.fragments.PizzaDetailFragment;
 import com.codepath.mypizza.fragments.PizzaMenuFragment;
 
-public class MainActivity extends AppCompatActivity implements PizzaMenuFragment.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements PizzaMenuFragment.OnItemSelectedListener  {
 
   int orientation;
 
@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements PizzaMenuFragment
     // Check layout
     orientation = getResources().getConfiguration().orientation;
 
+    // PORTRAIT
     if(orientation == Configuration.ORIENTATION_PORTRAIT){
       if (savedInstanceState == null) {
         // Instance of first fragment
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity implements PizzaMenuFragment
         ft.commit();                                                            // commit FragmentTransaction
       }
     }
+
+    // LANDSCAPE - Fragments are already present in XML Layout file - check activity_main.xml(land)
+    // so no need to do anything here...
   }
 
   /**
@@ -40,12 +44,14 @@ public class MainActivity extends AppCompatActivity implements PizzaMenuFragment
   @Override
   public void onPizzaItemSelected(int position) {
 
+    // PORTRAIT
     if(orientation == Configuration.ORIENTATION_PORTRAIT){
       // Load Pizza Detail Fragment
       PizzaDetailFragment secondFragment = new PizzaDetailFragment();
+
       Bundle args = new Bundle();
       args.putInt("position", position);
-      secondFragment.setArguments(args);
+      secondFragment.setArguments(args);          // (1) Communicate with Fragment using Bundle
 
       getSupportFragmentManager()
           .beginTransaction()
@@ -53,10 +59,12 @@ public class MainActivity extends AppCompatActivity implements PizzaMenuFragment
           .addToBackStack(null)
           .commit();
     }else{
+      // LANDSCAPE - Fragments are already present in XML Layout file - check activity_main.xml(land)
       PizzaDetailFragment pizzaDetailFragment = (PizzaDetailFragment) getSupportFragmentManager()
           .findFragmentById(R.id.pizza_detail_fragment);
+
       if(pizzaDetailFragment != null){
-        pizzaDetailFragment.updateView(position);
+        pizzaDetailFragment.updateView(position); // (2) Communicate with Fragment by calling Method
       }
     }
   }

@@ -67,8 +67,7 @@ public class PizzaMenuFragment extends Fragment {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // go to activity to load pizza details fragment
-        listener.onPizzaItemSelected(position);
-
+        listener.onPizzaItemSelected(position); // (3) Communicate with Activity using Listener
       }
     });
   }
@@ -77,7 +76,7 @@ public class PizzaMenuFragment extends Fragment {
   // Define the events that the fragment will use to communicate
   public interface OnItemSelectedListener {
     // This can be any number of events to be sent to the activity
-    public void onPizzaItemSelected(int position);
+    void onPizzaItemSelected(int position);
   }
 
 
