@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +29,14 @@ public class PizzaMenuFragment extends Fragment {
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
-    if(context instanceof OnItemSelectedListener){
-      this.listener = (OnItemSelectedListener) context;
+    if(context instanceof OnItemSelectedListener){      // context instanceof YourActivity
+      this.listener = (OnItemSelectedListener) context; // = (YourActivity) context
     } else {
       throw new ClassCastException(context.toString()
         + " must implement PizzaMenuFragment.OnItemSelectedListener");
     }
+
+    Log.i("DEBUG", "Fragment - onAttach()");
   }
 
   // This event fires 2nd, before views are created for the fragment
@@ -44,15 +47,17 @@ public class PizzaMenuFragment extends Fragment {
     super.onCreate(savedInstanceState);
 
     itemsAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, Pizza.pizzaMenu);
+
+    Log.i("DEBUG", "Fragment - onCreate()");
   }
 
   // The onCreateView method is called when Fragment should create its View object hierarchy
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
+    Log.i("DEBUG", "Fragment - onCreateView()");
 
     return inflater.inflate(R.layout.fragment_pizza_menu, parent, false);
   }
-
 
   // This event is triggered soon after onCreateView().
   // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
@@ -67,18 +72,72 @@ public class PizzaMenuFragment extends Fragment {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // go to activity to load pizza details fragment
-        listener.onPizzaItemSelected(position);
-
+        listener.onPizzaItemSelected(position); // (3) Communicate with Activity using Listener
       }
     });
+
+    Log.i("DEBUG", "Fragment - onViewCreated()");
   }
 
 
   // Define the events that the fragment will use to communicate
   public interface OnItemSelectedListener {
     // This can be any number of events to be sent to the activity
-    public void onPizzaItemSelected(int position);
+    void onPizzaItemSelected(int position);
   }
 
 
+
+
+
+  //
+  // Below Lifecycle event is just for understanding; you don't need to implement these
+  //
+  @Override
+  public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+    Log.i("DEBUG", "Fragment - onActivityCreated()");
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+    Log.i("DEBUG", "Fragment - onStart()");
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    Log.i("DEBUG", "Fragment - onResume()");
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    Log.i("DEBUG", "Fragment - onPause()");
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    Log.i("DEBUG", "Fragment - onStop()");
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    Log.i("DEBUG", "Fragment - onDestroyView()");
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    Log.i("DEBUG", "Fragment - onDestroy()");
+  }
+
+  @Override
+  public void onDetach() {
+    super.onDetach();
+    Log.i("DEBUG", "Fragment - onDetach()");
+  }
 }
