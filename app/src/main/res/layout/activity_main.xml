@@ -11,14 +11,9 @@
     android:orientation="vertical">
 
 
-   <!-- <fragment android:name="com.codepath.mypizza.fragments.PizzaMenuFragment"
+    <fragment android:name="com.codepath.mypizza.fragments.PizzaMenuFragment"
               android:id="@+id/pizza_menu_fragment"
               android:layout_width="match_parent"
-              android:layout_height="match_parent" />-->
-
-    <FrameLayout
-        android:id="@+id/flContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+              android:layout_height="match_parent" />
 
 </LinearLayout>

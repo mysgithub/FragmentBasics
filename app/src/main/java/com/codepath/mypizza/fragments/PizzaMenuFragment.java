@@ -1,6 +1,5 @@
 package com.codepath.mypizza.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,6 +25,7 @@ public class PizzaMenuFragment extends Fragment {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+    // Data
     itemsAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, Pizza.pizzaMenu);
   }
 
@@ -45,35 +45,12 @@ public class PizzaMenuFragment extends Fragment {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // go to activity to load pizza details fragment
-        listener.onPizzaItemSelected(position); // (3) Communicate with Activity using Listener
+        // (3) Communicate with Activity using Listener
       }
     });
   }
 
-  private OnItemSelectedListener listener;
 
 
-
-  //--OnItemSelectedListener listener;
-  // This event fires 1st, before creation of fragment or any views
-  // The onAttach method is called when the Fragment instance is associated with an Activity.
-  // This does not mean the Activity is fully initialized.
-  @Override
-  public void onAttach(Context context) {
-    super.onAttach(context);
-    if(context instanceof OnItemSelectedListener){      // context instanceof YourActivity
-      this.listener = (OnItemSelectedListener) context; // = (YourActivity) context
-    } else {
-      throw new ClassCastException(context.toString()
-        + " must implement PizzaMenuFragment.OnItemSelectedListener");
-    }
-  }
-
-
-  // Define the events that the fragment will use to communicate
-  public interface OnItemSelectedListener {
-    // This can be any number of events to be sent to the activity
-    void onPizzaItemSelected(int position);
-  }
 
 }
