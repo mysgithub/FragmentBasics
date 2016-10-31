@@ -4,7 +4,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.codepath.mypizza.fragments.PizzaDetailFragment;
@@ -18,8 +17,6 @@ public class MainActivity extends AppCompatActivity  implements PizzaMenuFragmen
     setContentView(R.layout.activity_main);
 
 
-    Log.d("DEBUG", getResources().getConfiguration().orientation + "");
-
     if (savedInstanceState == null) {
       // Instance of first fragment
       PizzaMenuFragment firstFragment = new PizzaMenuFragment();
@@ -32,18 +29,28 @@ public class MainActivity extends AppCompatActivity  implements PizzaMenuFragmen
 
     if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
       PizzaDetailFragment secondFragment = new PizzaDetailFragment();
+      // From Activity to Fragment
       Bundle args = new Bundle();
       args.putInt("position", 0);
       secondFragment.setArguments(args);          // (1) Communicate with Fragment using Bundle
+
       FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();// begin  FragmentTransaction
       ft2.add(R.id.flContainer2, secondFragment);                               // add    Fragment
       ft2.commit();                                                            // commit FragmentTransaction
     }
   }
 
+
+  /**
+   * Listener
+   *
+   * Fragment will call this ---
+   *
+   * @param position
+   */
   @Override
   public void onPizzaItemSelected(int position) {
-    Toast.makeText(this, "Called By Fragment A: position - "+ position, Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, "Called By Fragment A: position("+ position +")", Toast.LENGTH_SHORT).show();
 
     // Load Pizza Detail Fragment
     PizzaDetailFragment secondFragment = new PizzaDetailFragment();
